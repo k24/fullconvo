@@ -1,6 +1,7 @@
 package com.github.k24.fullconvo.tool;
 
 import com.github.k24.nullproxy.NullProxy;
+import com.github.k24.nullproxy.ObjectUtil;
 
 import javax.annotation.Nonnull;
 import java.lang.reflect.InvocationHandler;
@@ -56,6 +57,9 @@ public class ProxyFactory {
             } else if (parameterTypes.length == 0) {
                 // Getter
                 Object value = map.get(normalizerForGetter.normalize(method.getName()));
+                if (returnType.isPrimitive() && value == null) {
+                    return ObjectUtil.getNull(returnType);
+                }
                 if ((returnType.isPrimitive() || Number.class.isAssignableFrom(returnType)) && value instanceof Number) {
                     Number number = (Number) value;
                     GetterFromNumber getterFromNumber = Holder.PRIMITIVE_FROM_NUMBER.get(returnType);

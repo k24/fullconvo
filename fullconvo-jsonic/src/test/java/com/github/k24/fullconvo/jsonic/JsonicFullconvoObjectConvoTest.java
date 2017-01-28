@@ -173,6 +173,14 @@ public class JsonicFullconvoObjectConvoTest {
         assertThat(singleTypesInterface.getIntValue()).isEqualTo(5);
         assertThat(singleTypesInterface.getLongValue()).isEqualTo(6L);
         assertThat(singleTypesInterface.getStringValue()).isEqualTo("7");
+
+        singleTypesInterface = convo.toObject(SingleTypesInterface.class, convoOptions("longValue", 9));
+        assertThat(singleTypesInterface.isBooleanValue()).isEqualTo(true);
+        assertThat(singleTypesInterface.getDoubleValue()).isEqualTo(1.2);
+        assertThat(singleTypesInterface.getFloatValue()).isEqualTo(3.4f);
+        assertThat(singleTypesInterface.getIntValue()).isEqualTo(9);
+        assertThat(singleTypesInterface.getLongValue()).isEqualTo(0L);
+        assertThat(singleTypesInterface.getStringValue()).isEqualTo("7");
     }
 
     @Test
