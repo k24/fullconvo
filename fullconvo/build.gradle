@@ -1,0 +1,3 @@
+dependencies {
+    compile 'com.github.k24:nullproxy:1.0.1'
+}

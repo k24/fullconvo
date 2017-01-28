@@ -1,0 +1,6 @@
+dependencies {
+    compile project(':fullconvo')
+    testCompile project(':fullconvo-test')
+
+    compile 'net.arnx:jsonic:1.3.10'
+}

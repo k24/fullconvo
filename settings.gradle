@@ -1,0 +1,5 @@
+rootProject.name = 'fullconvo'
+include 'fullconvo'
+include 'fullconvo-jsonic'
+include 'fullconvo-test'
+
