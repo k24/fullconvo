@@ -18,7 +18,10 @@ public class JsonicFullconvo {
     }
 
     public static Fullconvo create() {
-        final JSON jsonic = new JSON();
+        return create(Holder.JSON_INSTANCE);
+    }
+
+    public static Fullconvo create(final JSON jsonic) {
         return new Fullconvo.Builder()
                 .jsonConvoFactory(new JsonConvoFactory() {
                     @Override
@@ -39,5 +42,29 @@ public class JsonicFullconvo {
                     }
                 })
                 .build();
+    }
+
+    public static Convo json(String json) {
+        return Holder.DEFAULT_INSTANCE.json(json);
+    }
+
+    public static Convo map(Map<String, Object> map) {
+        return Holder.DEFAULT_INSTANCE.map(map);
+    }
+
+    public static Convo object(Object object) {
+        return Holder.DEFAULT_INSTANCE.object(object);
+    }
+
+    private static class Holder {
+        static final JSON JSON_INSTANCE;
+        static final Fullconvo DEFAULT_INSTANCE;
+
+        static {
+            JSON json = new JSON();
+            json.setSuppressNull(true);
+            JSON_INSTANCE = json;
+            DEFAULT_INSTANCE = create(json);
+        }
     }
 }
