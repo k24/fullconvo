@@ -1,12 +1,14 @@
 package com.github.k24.fullconvo.jsonic;
 
 import com.github.k24.fullconvo.Fullconvo;
-import com.github.k24.fullconvo.convo.Convo;
-import com.github.k24.fullconvo.convo.JsonConvoFactory;
-import com.github.k24.fullconvo.convo.MapConvoFactory;
-import com.github.k24.fullconvo.convo.ObjectConvoFactory;
+import com.github.k24.fullconvo.convo.*;
 import net.arnx.jsonic.JSON;
 
+import javax.annotation.Nonnull;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.io.StringReader;
 import java.util.Map;
 
 /**
@@ -23,6 +25,25 @@ public class JsonicFullconvo {
 
     public static Fullconvo create(final JSON jsonic) {
         return new Fullconvo.Builder()
+                .feltConvoFactory(new FeltConvoFactory() {
+                    @Nonnull
+                    @Override
+                    public Convo from(@Nonnull String format, @Nonnull InputStream inputStream) {
+                        return from(format, new InputStreamReader(inputStream));
+                    }
+
+                    @Nonnull
+                    @Override
+                    public Convo from(@Nonnull String format, @Nonnull Reader reader) {
+                        return new JsonicFeltConvo(jsonic, format, reader);
+                    }
+
+                    @Nonnull
+                    @Override
+                    public Convo from(@Nonnull String format, @Nonnull String string) {
+                        return from(format, new StringReader(string));
+                    }
+                })
                 .jsonConvoFactory(new JsonConvoFactory() {
                     @Override
                     public Convo from(String json) {

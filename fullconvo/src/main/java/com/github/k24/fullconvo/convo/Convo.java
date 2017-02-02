@@ -2,6 +2,7 @@ package com.github.k24.fullconvo.convo;
 
 import com.github.k24.fullconvo.option.ConvoOptions;
 
+import javax.annotation.Nonnull;
 import java.util.Map;
 
 /**
@@ -9,6 +10,12 @@ import java.util.Map;
  */
 public interface Convo {
     Convo NULL = new Convo() {
+        @Nonnull
+        @Override
+        public Felt felt() {
+            throw new UnsupportedOperationException();
+        }
+
         @Override
         public String toJson() throws ConvoFailedException {
             return null;
@@ -51,4 +58,7 @@ public interface Convo {
     Map<String, Object> toMap(ConvoOptions options) throws ConvoFailedException;
 
     <T> T toObject(Class<T> toClass, ConvoOptions options) throws ConvoFailedException;
+
+    @Nonnull
+    Felt felt();
 }
